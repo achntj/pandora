@@ -74,7 +74,6 @@ const Draft: NextPage = () => {
 
 Draft.getInitialProps = async (context) => {
   const { req } = context;
-  console.log("context", context);
   // Hostname is needed on both front and back so we should
   // post it to the frontend by returning it from getInitialProps
   const origin = absoluteUrl(req).origin;
