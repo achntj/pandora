@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import Layout from "../components/Layout";
 import Router from "next/router";
 
-const Draft: React.FC = (props) => {
+const Draft: React.FC = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [pass, setPass] = useState("");
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    if (pass === props.pass) {
+    if (pass === process.env.NEXT_PUBLIC_PASS) {
       try {
         const body = { title, content };
         await fetch(`http://localhost:3000/api/post`, {
@@ -69,9 +69,5 @@ const Draft: React.FC = (props) => {
     </Layout>
   );
 };
-
-export async function getStaticProps() {
-  return { props: { pass: process.env.PASS } };
-}
 
 export default Draft;
