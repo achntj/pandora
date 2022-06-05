@@ -8,6 +8,7 @@ const Draft: NextPage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [pass, setPass] = useState("");
+  console.log(origin);
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
