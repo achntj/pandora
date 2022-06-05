@@ -32,7 +32,7 @@ const Home: React.FC<Props> = (props) => {
           drops stuff from his phone to get back to later.
         </p>
         <p className="text-sm">
-          Built with{" "}
+          Built on top of{" "}
           <a
             target="_blank"
             rel="noreferrer"
