@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
 import Router from "next/router";
+import { NextPage } from "next";
+import absoluteUrl from "next-absolute-url";
 
-const Draft: React.FC = () => {
+const Draft: NextPage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [pass, setPass] = useState("");
@@ -12,7 +14,7 @@ const Draft: React.FC = () => {
     if (pass === process.env.NEXT_PUBLIC_PASS) {
       try {
         const body = { title, content };
-        await fetch(`http://localhost:3000/api/post`, {
+        await fetch(`${origin}/api/post`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
@@ -68,6 +70,17 @@ const Draft: React.FC = () => {
       </div>
     </Layout>
   );
+};
+
+Draft.getInitialProps = async (context) => {
+  const { req } = context;
+  console.log("context", context);
+  // Hostname is needed on both front and back so we should
+  // post it to the frontend by returning it from getInitialProps
+  const origin = absoluteUrl(req).origin;
+  return {
+    origin,
+  };
 };
 
 export default Draft;
