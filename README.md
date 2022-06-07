@@ -1,6 +1,6 @@
 # Pandora
 
-Find more about this project [here](https://achintyajha.com/posts/pandora)
+Find more about this project [here](https://achintyajha.com/posts/pandora).
 
 ## Setup
 
