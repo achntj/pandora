@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 export type PostProps = {
@@ -12,9 +11,7 @@ export type PostProps = {
 const Post: React.FC<{ post: PostProps }> = ({ post }) => {
   return (
     <div>
-      <Link href={`/p/${post.id}`}>
-        <a className="text-2xl text-cyan-500">{post.title}</a>
-      </Link>
+      <p className="m-0 text-2xl text-pink-500 font-medium">{post.title}</p>
       <div className="entry">
         <ReactMarkdown children={post.content} />
       </div>

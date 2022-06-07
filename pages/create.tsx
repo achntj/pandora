@@ -3,6 +3,7 @@ import Layout from "../components/Layout";
 import Router from "next/router";
 import { NextPage } from "next";
 import absoluteUrl from "next-absolute-url";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 const Draft: NextPage = () => {
   const [title, setTitle] = useState("");
@@ -60,13 +61,18 @@ const Draft: NextPage = () => {
             <textarea
               cols={50}
               onChange={(e) => setContent(e.target.value)}
-              placeholder="Content (MD supported)"
+              placeholder="Content (MarkDown supported)"
               rows={8}
               value={content}
               className="w-full outline-none h-auto resize-none bg-transparent"
             />
           </div>
         </form>
+        <div>
+          <h2>Preview</h2>
+          <h3>{title}</h3>
+          <p>{<ReactMarkdown>{content}</ReactMarkdown>}</p>
+        </div>
       </div>
     </Layout>
   );

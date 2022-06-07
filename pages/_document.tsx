@@ -17,7 +17,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head />
-        <body>
+        <body className="bg-black">
           <Main />
           <NextScript />
         </body>
@@ -27,4 +27,3 @@ class MyDocument extends Document {
 }
 
 export default MyDocument;
-
