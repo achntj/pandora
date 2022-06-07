@@ -48,7 +48,7 @@ const Home: React.FC<Props> = (props) => {
             <p>(Nothing to see here) ʕ•ᴥ•ʔ</p>
           ) : (
             props.feed.map((post, index) => (
-              <div key={post.id} className="my-2 border-b-2 border-zinc-700">
+              <div key={post.id} className="my-2 border-b-2 border-zinc-900">
                 <p className="m-0">
                   #{index + 1} | {new Date(post.date).toLocaleDateString()}
                 </p>
