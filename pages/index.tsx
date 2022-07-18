@@ -50,7 +50,8 @@ const Home: React.FC<Props> = (props) => {
             props.feed.map((post, index) => (
               <div key={post.id} className="my-2 border-b-2 border-zinc-900">
                 <p className="m-0">
-                  #{index + 1} | {new Date(post.date).toLocaleDateString()}
+                  #{props.feed.length - index} |{" "}
+                  {new Date(post.date).toLocaleDateString()}
                 </p>
                 <Post post={post} />
               </div>
