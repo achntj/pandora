@@ -9,10 +9,12 @@ const Draft: NextPage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [pass, setPass] = useState("");
+  const [disable, setDisable] = useState(false);
 
   const submitData = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     if (pass === process.env.NEXT_PUBLIC_PASS) {
+      setDisable(true);
       try {
         const body = { title, content };
         await fetch(`${origin}/api/post`, {
@@ -42,16 +44,15 @@ const Draft: NextPage = () => {
               className="w-full outline-none bg-transparent"
             />
             <a>
-              <input
-                disabled={!content || !title}
-                type="submit"
-                value="Publish"
-              />
+              <button disabled={disable} type="submit">
+                Publish
+              </button>
             </a>
           </div>
           <div>
             <input
               autoFocus
+              required
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Title"
               type="text"
@@ -59,6 +60,7 @@ const Draft: NextPage = () => {
               className="w-full outline-none bg-transparent text-3xl font-bold"
             />
             <textarea
+              required
               cols={50}
               onChange={(e) => setContent(e.target.value)}
               placeholder="Content (MarkDown supported)"
