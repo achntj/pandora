@@ -16,11 +16,12 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
     const pass = prompt("Enter Password");
     if (pass !== null) {
       if (pass === process.env.NEXT_PUBLIC_PASS) {
-        setComplete(!complete);
         try {
           await fetch(
             `${
-              process.env.VERCEL_URL || "http://localhost:3000"
+              process.env.NODE_ENV === "production"
+                ? "https://pandoras-box.vercel.app/"
+                : "http://localhost:3000"
             }/api/complete/${id}`,
             {
               method: "PUT",
@@ -28,6 +29,7 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
               body: JSON.stringify(body),
             }
           );
+          setComplete(!complete);
         } catch (error) {
           alert(error);
         }
