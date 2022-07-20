@@ -17,5 +17,6 @@ model Post {
   date      DateTime @default(now())
   title     String   @db.VarChar(255)
   content   String   @db.VarChar(2000)
+  complete  Boolean  @default(false)
 }
 
