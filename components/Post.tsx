@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { MailIcon, MailOpenIcon } from "@heroicons/react/outline";
+import Router from "next/router";
 
 export type PostProps = {
   id: number;
@@ -29,6 +30,7 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
               body: JSON.stringify(body),
             }
           );
+          await Router.push("/");
           setComplete(!complete);
         } catch (error) {
           alert(error);
