@@ -43,7 +43,7 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
       <p
         className={`m-0 text-2xl ${
           complete ? "text-emerald-600" : "text-pink-500"
-        } font-medium flex items-center justify-between`}
+        } font-medium flex items-center gap-4 justify-between`}
       >
         {complete && "[COMPLETE]"} {post.title}
         <span onClick={() => updateComplete(post.id, complete)}>
@@ -54,7 +54,7 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
           )}
         </span>
       </p>
-      <div className="entry">
+      <div className="entry break-words">
         <ReactMarkdown children={post.content} />
       </div>
     </div>

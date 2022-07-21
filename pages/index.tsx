@@ -3,6 +3,7 @@ import { GetServerSideProps } from "next";
 import Layout from "../components/Layout";
 import Post, { PostProps } from "../components/Post";
 import prisma from "../lib/prisma";
+import { useState } from "react";
 
 export const getServerSideProps: GetServerSideProps = async () => {
   let feed = await prisma.post.findMany();
@@ -20,6 +21,7 @@ type Props = {
 };
 
 const Home: React.FC<Props> = (props) => {
+  const [showUnread, setShowUnread] = useState(false);
   return (
     <Layout>
       <div>
@@ -42,13 +44,26 @@ const Home: React.FC<Props> = (props) => {
           </a>
           .
         </p>
+        <div className="space-x-4 flex items-center">
+          <label>Unread Only</label>
+          <input
+            type="checkbox"
+            onClick={() => setShowUnread(!showUnread)}
+            checked={showUnread}
+          ></input>
+        </div>
         <hr />
         <main>
           {props.feed.length == 0 ? (
             <p>(Nothing to see here) ʕ•ᴥ•ʔ</p>
           ) : (
             props.feed.map((post, index) => (
-              <div key={post.id} className="my-2 border-b-2 border-zinc-900">
+              <div
+                key={post.id}
+                className={`${
+                  showUnread && post.complete && "hidden"
+                } my-2 border-b-2 border-zinc-900`}
+              >
                 <p className="m-0">
                   #{props.feed.length - index} |{" "}
                   {new Date(post.date).toLocaleDateString()}
