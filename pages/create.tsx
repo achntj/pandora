@@ -39,7 +39,7 @@ const Draft: NextPage = () => {
               autoFocus
               onChange={(e) => setPass(e.target.value)}
               placeholder="Password"
-              type="text"
+              type="password"
               value={pass}
               className="w-full outline-none bg-transparent"
             />
