@@ -22,6 +22,7 @@ type Props = {
 
 const Home: React.FC<Props> = (props) => {
   const [showUnread, setShowUnread] = useState(false);
+  const unreadCount = props.feed.filter((post) => !post.complete).length;
   return (
     <Layout>
       <div>
@@ -52,6 +53,7 @@ const Home: React.FC<Props> = (props) => {
             checked={showUnread}
           ></input>
         </div>
+        <p>{unreadCount} unread notes.</p>
         <hr />
         <main>
           {props.feed.length == 0 ? (
