@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { MailIcon, MailOpenIcon } from "@heroicons/react/outline";
-import Router from "next/router";
 
 export type PostProps = {
   id: number;
@@ -13,6 +12,7 @@ export type PostProps = {
 
 const Post: React.FC<{ post: PostProps }> = ({ post }) => {
   const [complete, setComplete] = useState(post.complete);
+
   const updateComplete = async (id: number, body: boolean) => {
     const pass = prompt("Enter Password");
     if (pass !== null) {
@@ -30,7 +30,7 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
               body: JSON.stringify(body),
             }
           );
-          await Router.push("/");
+          //await Router.push("/");
           setComplete(!complete);
         } catch (error) {
           alert(error);
@@ -48,7 +48,11 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
         } font-medium flex items-center gap-4 justify-between`}
       >
         {complete && "[COMPLETE]"} {post.title}
-        <span onClick={() => updateComplete(post.id, complete)}>
+        <span
+          onClick={() => {
+            updateComplete(post.id, complete);
+          }}
+        >
           {complete ? (
             <MailOpenIcon className="h-6 w-6" />
           ) : (

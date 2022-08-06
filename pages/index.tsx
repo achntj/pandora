@@ -1,12 +1,11 @@
-import React from "react";
-import { GetServerSideProps } from "next";
 import Layout from "../components/Layout";
-import Post, { PostProps } from "../components/Post";
+import { GetServerSideProps } from "next";
+import { PostProps } from "../components/Post";
 import prisma from "../lib/prisma";
-import { useState } from "react";
+import Feed from "../components/Feed";
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  let feed = await prisma.post.findMany();
+  let feed = await prisma.post.findMany({ where: { complete: false } });
   feed = JSON.parse(JSON.stringify(feed));
   feed = feed.sort(
     (a, b) => Number(new Date(b.date)) - Number(new Date(a.date))
@@ -21,11 +20,9 @@ type Props = {
 };
 
 const Home: React.FC<Props> = (props) => {
-  const [showUnread, setShowUnread] = useState(false);
-  const unreadCount = props.feed.filter((post) => !post.complete).length;
   return (
-    <Layout>
-      <div>
+    <div>
+      <Layout>
         <h1>Pandora's Box</h1>
         <p>
           A place where{" "}
@@ -45,38 +42,10 @@ const Home: React.FC<Props> = (props) => {
           </a>
           .
         </p>
-        <div className="space-x-4 flex items-center">
-          <label>Unread Only</label>
-          <input
-            type="checkbox"
-            onClick={() => setShowUnread(!showUnread)}
-            checked={showUnread}
-          ></input>
-        </div>
-        <p>{unreadCount} unread notes.</p>
-        <hr />
-        <main>
-          {props.feed.length == 0 ? (
-            <p>(Nothing to see here) ʕ•ᴥ•ʔ</p>
-          ) : (
-            props.feed.map((post, index) => (
-              <div
-                key={post.id}
-                className={`${
-                  showUnread && post.complete && "hidden"
-                } my-2 border-b-2 border-zinc-900`}
-              >
-                <p className="m-0">
-                  #{props.feed.length - index} |{" "}
-                  {new Date(post.date).toLocaleDateString()}
-                </p>
-                <Post post={post} />
-              </div>
-            ))
-          )}
-        </main>
-      </div>
-    </Layout>
+        <p className="font-bold">Showing only unread notes.</p>
+        <Feed props={props} unread={true} />
+      </Layout>
+    </div>
   );
 };
 

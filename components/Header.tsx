@@ -8,9 +8,12 @@ const Header: React.FC = () => {
     router.pathname === pathname;
 
   let left = (
-    <div className="space-x-2">
+    <div className="space-x-4">
       <Link href="/">
         <a data-active={isActive("/")}>Home</a>
+      </Link>
+      <Link href="/archives">
+        <a data-active={isActive("/archives")}>Archives</a>
       </Link>
     </div>
   );
